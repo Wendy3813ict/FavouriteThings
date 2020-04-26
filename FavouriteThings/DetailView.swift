@@ -13,10 +13,10 @@ struct DetailView: View {
     var body: some View {
         VStack(){
             VStack(alignment: .leading){
-                Text("Notes:")
+                Text("Image URL:")
                     .fontWeight(.bold)
                     .font(Font.system(size: 30))
-                TextField("Plz enter notes here...",text: $cat.notes)
+                TextField("Plz insert image here...",text: $cat.notes)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }.frame(width: 300, height: nil)
             
