@@ -36,32 +36,14 @@ struct MasterView: View {
                     }
                 }
     
-//    private var addButton: some View{
-//        switch CatList {
-//        case .inactive:
-//            return AnyView(Button(action: onAdd){Image(systemName: "plus")})
-//        default:
-//            return AnyView(EmptyView())
-//        }
-//    }
-    
-            
                 func delete(at offsets: IndexSet){
 //                    print("cat")
 //                    if let first = offsets.first{
 //                        catList.remove(at: first)
                     self.catList.cats.remove(atOffsets: offsets)
                     print(catList.cats)
-
-//                    }
-//                  }
-//                func move(from source: IndexSet, to destination: Int){
-//                    let reversedSource = source.sorted()
-//                    for index in reversedSource.reversed(){
-//                        catList.insert(catList.remove(at: index), at: destination)
-//                        }
-//                    }
-//                func add(){
+      
+//               func add(){
 //                    let maxID = catList.map($0.id).max() + 1
 //                    let cat = CatList(id: maxID, breed: "new breed")
 //                }
