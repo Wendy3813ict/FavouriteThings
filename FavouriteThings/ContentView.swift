@@ -9,13 +9,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        Text("FavouriteThings")
+    var catList: CatList
+    var body: some View{
+        NavigationView{
+            MasterView(catList:catList)
+            .navigationBarTitle("Pets")
+        }
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(catList: CatList())
     }
 }

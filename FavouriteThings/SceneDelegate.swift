@@ -12,15 +12,25 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
+    let catList = CatList()
+    var starArray: CatList = CatList()
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        
+        catList.cats.append(Cat("PET","cat","ragdoll","docile","15-20", ""))
+        catList.cats.append(Cat("PET","cat","British shorthair","docile","15-20", ""))
+        catList.cats.append(Cat("PET","cat","Persian cat","docile","13-17",""))
+        catList.cats.append(Cat("PET","cat","American Bobtail","docile","10-15",""))
+        catList.cats.append(Cat("PET","cat","Scottish Fold","docile","13-17",""))
+        
+        
+        let contentView = ContentView(catList: catList)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -61,4 +71,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-
