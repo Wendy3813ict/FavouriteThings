@@ -9,30 +9,41 @@
 import UIKit
 import SwiftUI
 
+//set up json file to save data & locate it in the system file
+let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+let documentFolderURL = urls.first!
+let fileURL = documentFolderURL.appendingPathComponent("FavouriteThinngsFile.json")
+
+
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    
-    let catList = CatList()
-    var starArray: CatList = CatList()
+    var catList = CatList()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        // Create the SwiftUI view that provides the window contents.
+        // Crack the data and show tht the error proves that it cannot be decoded.
+        do {
+        let t = try Data(contentsOf: fileURL)
+        let decoder = JSONDecoder()
+        let decodedModel = try decoder.decode(CatList.self, from: t)
+        catList = decodedModel
+        }
+        catch {
+            print("Unable to write File \(fileURL.path) \(error)")
+        }
         
-        catList.cats.append(Cat("PET","cat","ragdoll","docile","15-20", ""))
-        catList.cats.append(Cat("PET","cat","British shorthair","docile","15-20", ""))
-        catList.cats.append(Cat("PET","cat","Persian cat","docile","13-17",""))
-        catList.cats.append(Cat("PET","cat","American Bobtail","docile","10-15",""))
-        catList.cats.append(Cat("PET","cat","Scottish Fold","docile","13-17",""))
+        // From the shared persistent container to get managed object context
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
+        // Create the SwiftUI view, set the value of keyPath
+        let contentView = ContentView(catList: catList).environment(\.managedObjectContext, context)
         
-        let contentView = ContentView(catList: catList)
-
-        // Use a UIHostingController as window root view controller.
+        // let UIHostingController as window root to view the controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
@@ -40,7 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
         }
     }
-
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -67,7 +78,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    
+    // Crack the data and show tht the error proves that it cannot be decoded.
+    do {
+    let json = JSONEncoder()
+            let data = try json.encode(catList)
+            try data.write(to: fileURL)
+            print("File successfully\(fileURL.path)")
+        } catch {
+            print("File wrong\(fileURL.path) \(error)")
+        }
+        
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
 }
