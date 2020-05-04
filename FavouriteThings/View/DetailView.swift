@@ -13,7 +13,7 @@ import SwiftUI
 struct DetailView: View {
     @ObservedObject var cat: Cat
     @Environment(\.managedObjectContext) var viewContext
-    @State tempImageURL: String = ""      // tempImageURL is a temporary variable to save user image url
+    @State var tempImageURL: String = ""      // tempImageURL is a temporary variable to save user image url
     var body: some View {
         VStack(){
             VStack(alignment: .leading){

@@ -21,7 +21,7 @@ struct ContentView: View {
                 in action. */
             .navigationBarItems(leading: EditButton(),
             trailing: Button( action: {
-                  withAnimation { self.catList.cat.append(Cat("","Type", "Name","","","","", "", "", "" )) }
+                  withAnimation { self.catList.cat.append(Cat("","Type", "Name","","","","", "", "")) }
             }){ Image(systemName: "plus")})
         }
     }
